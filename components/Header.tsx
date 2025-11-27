@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 import { Button } from "./Button";
 
 export function Header() {
@@ -30,21 +30,21 @@ export function Header() {
             Gr8<span className="text-blue-400">Builds</span>
           </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-white/70 hover:text-white transition">
-            Home
-          </Link>
-          <Link href="/projects" className="text-white/70 hover:text-white transition">
-            Projects
-          </Link>
-          <Link href="/about" className="text-white/70 hover:text-white transition">
-            About
-          </Link>
-          <Link href="/contact" className="text-white/70 hover:text-white transition">
-            Contact
-          </Link>
-        </nav>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="/" className="text-white/70 hover:text-white transition">
+              Home
+            </Link>
+            <Link href="/projects" className="text-white/70 hover:text-white transition">
+              Projects
+            </Link>
+            <Link href="/about" className="text-white/70 hover:text-white transition">
+              About
+            </Link>
+            <Link href="/contact" className="text-white/70 hover:text-white transition">
+              Contact
+            </Link>
+          </nav>
 
           {/* CTA Button */}
           <div className="hidden md:block">
@@ -111,7 +111,7 @@ export function Header() {
                   onClick={closeMobileMenu}
                 >
                   About
-                  </Link>
+                </Link>
                 <Link
                   href="/contact"
                   className="text-white/70 hover:text-white transition py-3 text-lg font-medium border-b border-white/10"

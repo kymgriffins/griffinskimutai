@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Target, Award, Clock, Code, Zap, Shield, TrendingUp } from "lucide-react";
-import { Header } from "../../components/Header";
+import { Award, Clock, Code, Shield, Target, TrendingUp, Users, Zap } from "lucide-react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import { Header } from "../../components/Header";
 
 export default function AboutPage() {
   return (
@@ -21,7 +21,7 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-              About GR8Builds
+              About Gr8Builds
             </h1>
             <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8">
               We&apos;re a premium software development agency specializing in crafting exceptional
@@ -235,7 +235,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-4xl font-bold mb-4"
           >
-            Ready to Build Something GR8?
+            Ready to Build Something Gr8?
           </motion.h2>
 
           <motion.p

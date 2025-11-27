@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Twitter } from "lucide-react";
+import Link from "next/link";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -49,7 +49,7 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="mailto:hello@gr8builds.com"
+                href="mailto:hello@Gr8builds.com"
                 className="text-white/40 hover:text-white transition-colors"
                 aria-label="Email"
               >
@@ -133,7 +133,7 @@ export function Footer() {
           className="border-t border-white/12 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <p className="text-white/40 text-sm">
-            © {currentYear} GR8Builds. All rights reserved.
+            © {currentYear} Gr8Builds. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <Link href="#" className="text-white/40 hover:text-white transition-colors">

@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, CheckCircle, Clock, Users, Zap } from "lucide-react";
+import { CheckCircle, Clock, Mail, MapPin, Phone, Send, Users, Zap } from "lucide-react";
 import { useState } from "react";
-import { Header } from "../../components/Header";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import { Header } from "../../components/Header";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -61,7 +61,7 @@ export default function ContactPage() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-              Let&apos;s Build Something GR8
+              Let&apos;s Build Something Gr8
             </h1>
             <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8">
               Ready to transform your business with premium software? Tell us about your project
@@ -241,7 +241,7 @@ export default function ContactPage() {
                     <Mail className="h-6 w-6 text-blue-400" />
                     <div>
                       <div className="font-semibold">Email</div>
-                      <div className="text-white/70">hello@gr8builds.com</div>
+                      <div className="text-white/70">hello@Gr8builds.com</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -263,7 +263,7 @@ export default function ContactPage() {
 
               {/* Why Choose Us */}
               <Card className="p-8">
-                <h3 className="text-2xl font-bold mb-6">Why Choose GR8Builds</h3>
+                <h3 className="text-2xl font-bold mb-6">Why Choose Gr8Builds</h3>
                 <div className="space-y-4">
                   {[
                     {

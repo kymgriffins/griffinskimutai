@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* GR8Builds Brand System - Pure Black & White */
+  /* Gr8Builds Brand System - Pure Black & White */
   --background: #000000;
   --foreground: #ffffff;
   --glass-bg: rgba(255, 255, 255, 0.05);

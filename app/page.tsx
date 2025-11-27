@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Code, Globe, Palette, Rocket, Shield, Target, Users, Zap } from "lucide-react";
 import { useRef } from "react";
-import { ArrowRight, Zap, Shield, Code, Users, Palette, Globe, Star, Rocket, Target } from "lucide-react";
-import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { Header } from "../components/Header";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -59,7 +59,7 @@ export default function Home() {
             className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight"
           >
             Build Faster. Ship Smarter.{" "}
-            <span className="text-blue-400 block md:inline">GR8Builds</span>
+            <span className="text-blue-400 block md:inline">Gr8Builds</span>
           </motion.h1>
 
           <motion.p
@@ -76,7 +76,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
             <Button href="/projects" size="lg" className="text-lg px-12 py-6">
               View Our Work
@@ -86,11 +86,38 @@ export default function Home() {
               Start Your Project
             </Button>
           </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          >
+            <button
+              onClick={() => document.getElementById('features-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors duration-300 group"
+              aria-label="Scroll to next section"
+            >
+              <span className="text-sm font-medium tracking-wider uppercase">Discover More</span>
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center group-hover:border-white/80 transition-colors"
+              >
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="w-1 h-3 bg-white/40 rounded-full mt-2 group-hover:bg-white/80 transition-colors"
+                />
+              </motion.div>
+            </button>
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-32 px-6 bg-gradient-to-b from-white/5 to-transparent">
+      <section id="features-section" className="py-32 px-6 bg-gradient-to-b from-white/5 to-transparent">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -108,7 +135,7 @@ export default function Home() {
             >
               <Target className="h-8 w-8 text-white" />
               <h2 className="text-5xl font-bold text-white">
-                Why Choose GR8Builds
+                Why Choose Gr8Builds
               </h2>
             </motion.div>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
@@ -297,7 +324,7 @@ export default function Home() {
             >
               Ready to Build
               <br />
-              Something <span className="text-white">GR8</span>?
+              Something <span className="text-white">Gr8</span>?
             </motion.h2>
 
             <motion.p

@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Globe, Code, Users, TrendingUp, LucideIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Code, Globe, LucideIcon, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
-import { Header } from "../../components/Header";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import { Header } from "../../components/Header";
 import { getProjectsList } from "../../data/projects";
 
 interface ProjectListItem {
@@ -158,7 +158,7 @@ export default function ProjectsPage() {
             viewport={{ once: true }}
             className="text-4xl font-bold mb-4"
           >
-            Ready to Build Something GR8?
+            Ready to Build Something Gr8?
           </motion.h2>
 
           <motion.p
