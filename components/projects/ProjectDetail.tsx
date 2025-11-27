@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowLeft, CheckCircle, LucideIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Header } from "../Header";
 import { Button } from "../Button";
 import { Card } from "../Card";
 
-export interface ProjectData {
+export interface ProjectDataRaw {
   id: string;
   title: string;
   subtitle: string;
@@ -15,16 +16,16 @@ export interface ProjectData {
   longDescription: string;
   tech: string[];
   impact: string;
-  icon: LucideIcon;
+  iconName: string;
   features: {
-    icon: LucideIcon;
+    iconName: string;
     title: string;
     desc: string;
   }[];
   frontendFeatures: string[];
   backendFeatures: string[];
   specialFeatures: {
-    icon: LucideIcon;
+    iconName: string;
     title: string;
     desc: string;
   }[];
@@ -33,15 +34,50 @@ export interface ProjectData {
     label: string;
   }[];
   ctaText: string;
-  ctaIcon: LucideIcon;
+  ctaIconName: string;
 }
 
 interface ProjectDetailProps {
-  project: ProjectData;
+  project: ProjectDataRaw;
+}
+
+async function loadIcon(iconName: string): Promise<LucideIcon> {
+  const lucide = await import('lucide-react');
+  return (lucide as unknown as Record<string, LucideIcon>)[iconName];
 }
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
-  // Since icons are loaded dynamically, they should be available when passed to this component
+  const [loadedIcons, setLoadedIcons] = useState<{
+    mainIcon?: LucideIcon;
+    ctaIcon?: LucideIcon;
+    featureIcons: LucideIcon[];
+  }>({
+    featureIcons: [],
+  });
+
+  useEffect(() => {
+    async function loadIcons() {
+      const [mainIcon, ctaIcon, ...featureIcons] = await Promise.all([
+        loadIcon(project.iconName),
+        loadIcon(project.ctaIconName),
+        ...project.features.map(f => loadIcon(f.iconName)),
+      ]);
+
+      setLoadedIcons({
+        mainIcon,
+        ctaIcon,
+        featureIcons,
+      });
+    }
+
+    loadIcons();
+  }, [project]);
+
+  // Don't render until icons are loaded
+  if (!loadedIcons.mainIcon || !loadedIcons.ctaIcon) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
       <Header />
@@ -95,21 +131,26 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           </motion.h2>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {project.features.map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <Card variant="hoverable">
-                  <feature.icon className="h-10 w-10 text-blue-400 mb-4" />
-                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                  <p className="text-white/70">{feature.desc}</p>
-                </Card>
-              </motion.div>
-            ))}
+            {project.features.map((feature, i) => {
+              const IconComponent = loadedIcons.featureIcons[i];
+              if (!IconComponent) return null;
+
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                >
+                  <Card variant="hoverable">
+                    <IconComponent className="h-10 w-10 text-blue-400 mb-4" />
+                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                    <p className="text-white/70">{feature.desc}</p>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -159,17 +200,22 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           >
             <h3 className="text-3xl font-bold mb-8">Advanced Features</h3>
             <div className="grid gap-6 md:grid-cols-2">
-              {project.specialFeatures.map((feature, i) => (
-                <Card key={i} variant="elevated">
-                  <div className="flex items-center gap-3 mb-4">
-                    <feature.icon className="h-6 w-6 text-blue-400" />
-                    <h4 className="text-xl font-semibold">{feature.title}</h4>
-                  </div>
-                  <p className="text-black/80">
-                    {feature.desc}
-                  </p>
-                </Card>
-              ))}
+              {project.specialFeatures.map((feature, i) => {
+                if (!loadedIcons.featureIcons[project.features.length + i]) return null;
+
+                const IconComponent = loadedIcons.featureIcons[project.features.length + i];
+                return (
+                  <Card key={i} variant="elevated">
+                    <div className="flex items-center gap-3 mb-4">
+                      <IconComponent className="h-6 w-6 text-blue-400" />
+                      <h4 className="text-xl font-semibold">{feature.title}</h4>
+                    </div>
+                    <p className="text-black/80">
+                      {feature.desc}
+                    </p>
+                  </Card>
+                );
+              })}
             </div>
           </motion.div>
         </div>
@@ -211,7 +257,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           >
             <Button href="/contact" size="lg">
               {project.ctaText}
-              <project.ctaIcon className="h-5 w-5" />
+              <loadedIcons.ctaIcon className="h-5 w-5" />
             </Button>
           </motion.div>
         </div>

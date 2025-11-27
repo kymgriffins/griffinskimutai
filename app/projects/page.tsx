@@ -1,9 +1,7 @@
 "use client";
 
-"use client";
-
 import { motion } from "framer-motion";
-import { ArrowRight, Globe, Code, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, Globe, Code, Users, TrendingUp, LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Header } from "../../components/Header";
@@ -11,8 +9,18 @@ import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { getProjectsList } from "../../data/projects";
 
+interface ProjectListItem {
+  id: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  link: string;
+  tech: string[];
+  impact: string;
+}
+
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<ProjectListItem[]>([]);
 
   useEffect(() => {
     async function loadProjects() {
@@ -22,7 +30,7 @@ export default function ProjectsPage() {
       const projectsWithIcons = await Promise.all(
         projectsData.map(async (project) => {
           const lucide = await import('lucide-react');
-          const icon = (lucide as any)[project.icon];
+          const icon = (lucide as unknown as Record<string, LucideIcon>)[project.icon];
           return { ...project, icon };
         })
       );

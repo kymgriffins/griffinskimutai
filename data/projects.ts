@@ -1,12 +1,16 @@
-import { ProjectData } from "../components/projects/ProjectDetail";
+import { ProjectDataRaw } from "../components/projects/ProjectDetail";
+import { LucideIcon, Brain, Building, Youtube } from "lucide-react";
 
 // Dynamic icon loading function
 async function loadIcon(iconName: string) {
   const lucide = await import('lucide-react');
-  return (lucide as any)[iconName];
+  return (lucide as unknown as Record<string, LucideIcon>)[iconName];
 }
 
-export const projectsData: ProjectData[] = [
+// Import ProjectDataRaw from ProjectDetail
+// No local interface needed
+
+export const projectsData: ProjectDataRaw[] = [
   {
     id: "payment-escrow",
     title: "Payment Escrow System",
@@ -90,7 +94,7 @@ export const projectsData: ProjectData[] = [
     longDescription: "Transform traders from gamblers into disciplined professionals through psychology-first mental game development. The most critical yet most neglected aspect of trading success.",
     tech: ["Next.js 14", "Supabase", "Stripe", "TypeScript"],
     impact: "85% psychology improvement",
-    icon: Brain,
+    iconName: "Brain",
     features: [
       {
         iconName: "Brain",
@@ -165,7 +169,7 @@ export const projectsData: ProjectData[] = [
     longDescription: "End-to-end construction management platform connecting architects, contractors, and clients. Streamlines the entire design-to-completion workflow with real-time collaboration.",
     tech: ["React", "Node.js", "Three.js", "MongoDB"],
     impact: "40% cost reduction",
-    icon: Building,
+    iconName: "Building",
     features: [
       {
         iconName: "Building",
@@ -240,7 +244,7 @@ export const projectsData: ProjectData[] = [
     longDescription: "Transform your YouTube presence into a comprehensive portfolio platform that showcases your content, engages your audience, and drives growth.",
     tech: ["React", "Node.js", "MongoDB"],
     impact: "1000+ views",
-    icon: Youtube,
+    iconName: "Youtube",
     features: [
       {
         iconName: "Play",
@@ -309,31 +313,8 @@ export const projectsData: ProjectData[] = [
   },
 ];
 
-export async function getProjectById(id: string): Promise<ProjectData | undefined> {
-  const project = projectsData.find(project => project.id === id);
-  if (!project) return undefined;
-
-  // Load icons dynamically
-  const [icon, ctaIcon, ...featureIcons] = await Promise.all([
-    loadIcon(project.iconName),
-    loadIcon(project.ctaIconName),
-    ...project.features.map(f => loadIcon(f.iconName)),
-    ...project.specialFeatures.map(f => loadIcon(f.iconName))
-  ]);
-
-  return {
-    ...project,
-    icon,
-    ctaIcon,
-    features: project.features.map((f, i) => ({
-      ...f,
-      icon: featureIcons[i]
-    })),
-    specialFeatures: project.specialFeatures.map((f, i) => ({
-      ...f,
-      icon: featureIcons[project.features.length + i]
-    }))
-  };
+export function getProjectById(id: string): ProjectDataRaw | undefined {
+  return projectsData.find(project => project.id === id);
 }
 
 export function getProjectsList() {
